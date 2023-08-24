@@ -94,11 +94,11 @@
             android:layout_height="wrap_content"
             android:text="Засеваемая" />
 
-        <Button
-            android:id="@+id/buttonChooseSownCulture"
+        <Spinner
+            android:id="@+id/sownSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Выбрать" />
+            android:spinnerMode="dropdown" />
 
         <!--Предыдущая-->
 
@@ -108,11 +108,11 @@
             android:layout_height="wrap_content"
             android:text="Предыдущая" />
 
-        <Button
-            android:id="@+id/buttonChoosePreviousCulture"
+        <Spinner
+            android:id="@+id/previousSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Выбрать" />
+            android:spinnerMode="dropdown" />
 
         <!--Планируемый урожай-->
 
