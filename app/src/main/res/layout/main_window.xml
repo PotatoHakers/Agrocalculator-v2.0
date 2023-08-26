@@ -261,21 +261,6 @@
 
         </LinearLayout>
 
-        <!--Содержание N-->
-
-        <TextView
-            android:id="@+id/textViewContentN"
-            android:layout_width="219dp"
-            android:layout_height="69dp"
-            android:text="Содержание К2О в почве" />
-
-        <EditText
-            android:id="@+id/editTextContentN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
         <!--Содержание K-->
 
         <TextView
