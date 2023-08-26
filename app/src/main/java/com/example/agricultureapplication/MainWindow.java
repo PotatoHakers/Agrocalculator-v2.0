@@ -70,35 +70,35 @@ public class MainWindow extends AppCompatActivity {
                 String selectedValue = parent.getItemAtPosition(position).toString();
 
                 if (selectedValue.equals("Брестская область")) {
-                    editTextSoilDensity.setText("");
-                    editTextTopsoilThickness.setText("");
-                    editTextHumusContent.setText("");
-                    editTextSoilAcidity.setText("");
+                    editTextSoilDensity.setText("1.2");
+                    editTextTopsoilThickness.setText("20");
+                    editTextHumusContent.setText("3.5");
+                    editTextSoilAcidity.setText("7.5");
                 } else if (selectedValue.equals("Витебская область")) {
-                    editTextSoilDensity.setText("");
-                    editTextTopsoilThickness.setText("");
-                    editTextHumusContent.setText("");
-                    editTextSoilAcidity.setText("");
+                    editTextSoilDensity.setText("1.2");
+                    editTextTopsoilThickness.setText("20");
+                    editTextHumusContent.setText("2.2");
+                    editTextSoilAcidity.setText("5.3");
                 } else if (selectedValue.equals("Гомельская область")){
-                    editTextSoilDensity.setText("");
-                    editTextTopsoilThickness.setText("");
-                    editTextHumusContent.setText("");
-                    editTextSoilAcidity.setText("");
+                    editTextSoilDensity.setText("1.2");
+                    editTextTopsoilThickness.setText("20");
+                    editTextHumusContent.setText("3.5");
+                    editTextSoilAcidity.setText("7.5");
                 } else if (selectedValue.equals("Гродненская область")){
-                    editTextSoilDensity.setText("");
-                    editTextTopsoilThickness.setText("");
-                    editTextHumusContent.setText("");
-                    editTextSoilAcidity.setText("");
+                    editTextSoilDensity.setText("1.2");
+                    editTextTopsoilThickness.setText("20");
+                    editTextHumusContent.setText("2.2");
+                    editTextSoilAcidity.setText("5.3");
                 } else if (selectedValue.equals("Минская область")){
-                    editTextSoilDensity.setText("");
-                    editTextTopsoilThickness.setText("");
-                    editTextHumusContent.setText("");
-                    editTextSoilAcidity.setText("");
+                    editTextSoilDensity.setText("1.2");
+                    editTextTopsoilThickness.setText("20");
+                    editTextHumusContent.setText("2.2");
+                    editTextSoilAcidity.setText("5.3");
                 } else if (selectedValue.equals("Могилеская область")){
-                    editTextSoilDensity.setText("");
-                    editTextTopsoilThickness.setText("");
-                    editTextHumusContent.setText("");
-                    editTextSoilAcidity.setText("");
+                    editTextSoilDensity.setText("1.2");
+                    editTextTopsoilThickness.setText("20");
+                    editTextHumusContent.setText("2.2");
+                    editTextSoilAcidity.setText("5.3");
                 }
             }
 

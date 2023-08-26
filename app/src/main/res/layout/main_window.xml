@@ -261,13 +261,28 @@
 
         </LinearLayout>
 
-        <!--Содержание K2O-->
+        <!--Содержание N-->
+
+        <TextView
+            android:id="@+id/textViewContentN"
+            android:layout_width="219dp"
+            android:layout_height="69dp"
+            android:text="Содержание К2О в почве" />
+
+        <EditText
+            android:id="@+id/editTextContentN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="мг/кг"
+            android:text="" />
+
+        <!--Содержание K-->
 
         <TextView
             android:id="@+id/textViewContentK2O"
-            android:layout_width="160dp"
+            android:layout_width="219dp"
             android:layout_height="69dp"
-            android:text="Содержание К2О" />
+            android:text="Содержание К2О в почве" />
 
         <EditText
             android:id="@+id/editTextContentK2O"
@@ -276,31 +291,16 @@
             android:hint="мг/кг"
             android:text="" />
 
-        <!--Содержание P2O5-->
+        <!--Содержание P-->
 
         <TextView
             android:id="@+id/textViewContentP2O5"
-            android:layout_width="160dp"
+            android:layout_width="231dp"
             android:layout_height="69dp"
-            android:text="Содержание P2O5" />
+            android:text="Содержание P2O5 в почве" />
 
         <EditText
             android:id="@+id/editTextContentP2O5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание N-->
-
-        <TextView
-            android:id="@+id/TextViewContentN"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание N" />
-
-        <EditText
-            android:id="@+id/editTextContentN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="мг/кг"
