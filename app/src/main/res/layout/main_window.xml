@@ -81,13 +81,6 @@
 
         <!--Засеваемая-->
 
-        <ViewStub
-            android:id="@+id/viewStubSownCulture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout="@layout/culture_type"
-            android:visibility="gone" />
-
         <TextView
             android:id="@+id/textViewSownCulture"
             android:layout_width="match_parent"
@@ -268,31 +261,31 @@
 
         </LinearLayout>
 
-        <!--Содержание P-->
+        <!--Содержание K2O-->
 
         <TextView
-            android:id="@+id/textViewContentP"
+            android:id="@+id/textViewContentK2O"
             android:layout_width="160dp"
             android:layout_height="69dp"
-            android:text="Содержание P" />
+            android:text="Содержание К2О" />
 
         <EditText
-            android:id="@+id/editTextContentP"
+            android:id="@+id/editTextContentK2O"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="мг/кг"
             android:text="" />
 
-        <!--Содержание K-->
+        <!--Содержание P2O5-->
 
         <TextView
-            android:id="@+id/textViewContentK"
+            android:id="@+id/textViewContentP2O5"
             android:layout_width="160dp"
             android:layout_height="69dp"
-            android:text="Содержание K" />
+            android:text="Содержание P2O5" />
 
         <EditText
-            android:id="@+id/editTextContentK"
+            android:id="@+id/editTextContentP2O5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="мг/кг"
@@ -312,173 +305,6 @@
             android:layout_height="wrap_content"
             android:hint="мг/кг"
             android:text="" />
-
-        <!--Содержание KCl-->
-
-        <TextView
-            android:id="@+id/TextViewContentKCl"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:hint="мг/кг"
-            android:text="Содержание KCl" />
-
-        <EditText
-            android:id="@+id/editTextContentKCl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание Ca-->
-
-        <TextView
-            android:id="@+id/TextViewContentCa"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание Ca" />
-
-        <EditText
-            android:id="@+id/editTextContentCa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание Mo-->
-
-        <TextView
-            android:id="@+id/TextViewContentMo"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание Mo" />
-
-        <EditText
-            android:id="@+id/editTextContentMo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание B-->
-
-        <TextView
-            android:id="@+id/TextViewContentB"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание B" />
-
-        <EditText
-            android:id="@+id/editTextContentB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание Cu-->
-
-        <TextView
-            android:id="@+id/TextViewContentCu"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание Cu" />
-
-        <EditText
-            android:id="@+id/editTextContentCu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание Zn-->
-
-        <TextView
-            android:id="@+id/TextViewContentZn"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание Zn" />
-
-        <EditText
-            android:id="@+id/editTextContentZn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание Mn-->
-
-        <TextView
-            android:id="@+id/TextViewContentMn"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание Mn" />
-
-        <EditText
-            android:id="@+id/editTextContentMn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание Fe-->
-
-        <TextView
-            android:id="@+id/TextViewContentFe"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание Fe" />
-
-        <EditText
-            android:id="@+id/editTextContentFe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание I-->
-
-        <TextView
-            android:id="@+id/TextViewContentI"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание I" />
-
-        <EditText
-            android:id="@+id/editTextContentI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание Co(Кобальт)-->
-
-        <TextView
-            android:id="@+id/TextViewContentCo"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание Co" />
-
-        <EditText
-            android:id="@+id/editTextContentCo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
-        <!--Содержание Mg-->
-
-        <TextView
-            android:id="@+id/TextViewContentMg"
-            android:layout_width="160dp"
-            android:layout_height="69dp"
-            android:text="Содержание Mg" />
-
-        <EditText
-            android:id="@+id/editTextContentMg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="мг/кг"
-            android:text="" />
-
 
         <Button
             android:id="@+id/buttonReset"

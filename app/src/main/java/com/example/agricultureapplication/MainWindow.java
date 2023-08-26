@@ -64,6 +64,50 @@ public class MainWindow extends AppCompatActivity {
             }
         });
 
+        regionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedValue = parent.getItemAtPosition(position).toString();
+
+                if (selectedValue.equals("Брестская область")) {
+                    editTextSoilDensity.setText("");
+                    editTextTopsoilThickness.setText("");
+                    editTextHumusContent.setText("");
+                    editTextSoilAcidity.setText("");
+                } else if (selectedValue.equals("Витебская область")) {
+                    editTextSoilDensity.setText("");
+                    editTextTopsoilThickness.setText("");
+                    editTextHumusContent.setText("");
+                    editTextSoilAcidity.setText("");
+                } else if (selectedValue.equals("Гомельская область")){
+                    editTextSoilDensity.setText("");
+                    editTextTopsoilThickness.setText("");
+                    editTextHumusContent.setText("");
+                    editTextSoilAcidity.setText("");
+                } else if (selectedValue.equals("Гродненская область")){
+                    editTextSoilDensity.setText("");
+                    editTextTopsoilThickness.setText("");
+                    editTextHumusContent.setText("");
+                    editTextSoilAcidity.setText("");
+                } else if (selectedValue.equals("Минская область")){
+                    editTextSoilDensity.setText("");
+                    editTextTopsoilThickness.setText("");
+                    editTextHumusContent.setText("");
+                    editTextSoilAcidity.setText("");
+                } else if (selectedValue.equals("Могилеская область")){
+                    editTextSoilDensity.setText("");
+                    editTextTopsoilThickness.setText("");
+                    editTextHumusContent.setText("");
+                    editTextSoilAcidity.setText("");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Ничего не делаем
+            }
+        });
+
         Spinner mechanicalCompositionSoil = findViewById(R.id.spinnerMehanicalCompositionSoil);
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
@@ -117,32 +161,6 @@ public class MainWindow extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Do nothing
-            }
-        });
-
-        /*region buttonChooseRegion
-
-        Button button = findViewById(R.id.buttonChooseRegion);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainWindow.this, ChooseRegion.class);
-                startActivity(intent);
-            }
-        });
-
-        endregion buttonChooseRegion*/
-
-        Button openButton = findViewById(R.id.buttonChooseSownCulture);
-
-        openButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainWindow.this, CultureType.class);
-                startActivity(intent);
             }
         });
 
