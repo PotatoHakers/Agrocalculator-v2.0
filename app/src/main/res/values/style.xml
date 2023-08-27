@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SpinnerStyle">
+        <item name="android:background">@drawable/spinner_background</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:background">@drawable/edittext_background</item>
+    </style>
+</resources>

@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,6 +38,18 @@ public class MainWindow extends AppCompatActivity {
         EditText editTextSoilAcidity = findViewById(R.id.editTextSoilAcidity);
         EditText editTextContentK = findViewById(R.id.editTextContentK2O);
         EditText editTextContentP = findViewById(R.id.editTextContentP2O5);
+
+        ImageView imageViewFiledOption = findViewById(R.id.imageViewFieldOption);
+        imageViewFiledOption.setImageResource(R.drawable.distance);
+
+        ImageView imageViewCulture = findViewById(R.id.imageViewCulture);
+        imageViewCulture.setImageResource(R.drawable.psychiatry);
+
+        ImageView imageViewSoil = findViewById(R.id.imageViewSoil);
+        imageViewSoil.setImageResource(R.drawable.area_chart);
+
+        ImageView imageViewChemComp = findViewById(R.id.imageViewChemComp);
+        imageViewChemComp.setImageResource(R.drawable.list_alt);
 
         Spinner regionSpinner = findViewById(R.id.regionSpinner);
 

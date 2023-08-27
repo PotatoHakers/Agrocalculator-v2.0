@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Агрокалькулятор</string>
     <string name="Button">Кнопка</string>
+    <string name="todo">TODO</string>
 
-        <string-array name="belarus_regions">
+    <string-array name="belarus_regions">
             <item>Выберите...</item>
             <item>Брестская область</item>
             <item>Витебская область</item>
