@@ -1,6 +1,7 @@
 package com.example.agricultureapplication;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class MainWindow extends AppCompatActivity {
 
@@ -134,6 +139,60 @@ public class MainWindow extends AppCompatActivity {
                 // Ничего не делаем
             }
         });
+
+        TextView textView = findViewById(R.id.textViewFieldOption);
+        TextView textView1 = findViewById(R.id.textViewCulture);
+        TextView textView2 = findViewById(R.id.textViewSoilAcidity);
+        TextView textView3 = findViewById(R.id.textViewDegreeInfestation);
+        TextView textView4 = findViewById(R.id.textViewHumusContent);
+        TextView textView5 = findViewById(R.id.textViewSoil);
+        TextView textView6 = findViewById(R.id.textViewTopsoilThickness);
+        TextView textView7 = findViewById(R.id.textViewSoilDensity);
+        TextView textView8 = findViewById(R.id.textViewPlannedHarvest);
+        TextView textView9 = findViewById(R.id.textViewPreviousCulture);
+        TextView textView10 = findViewById(R.id.textViewSquare);
+        TextView textView11 = findViewById(R.id.textViewChemComp);
+        TextView textView12 = findViewById(R.id.textViewContentK2O);
+        TextView textView13 = findViewById(R.id.textViewContentP2O5);
+        TextView textView14 = findViewById(R.id.textViewMehanicalCompositionSoil);
+        TextView textView15 = findViewById(R.id.textViewSownCulture);
+        TextView textView16 = findViewById(R.id.textRegion);
+        TextView textView17 = findViewById(R.id.textViewContentN);
+        Button buttonBack = findViewById(R.id.buttonReset);
+        Button buttonResult = findViewById(R.id.buttonCalculate);
+
+        Typeface customFont = ResourcesCompat.getFont(this, R.font.comfortaa);
+        Typeface customFontButton = ResourcesCompat.getFont(this, R.font.comfortaa_big);
+
+
+        textView.setTypeface(customFont);
+        textView1.setTypeface(customFont);
+        textView2.setTypeface(customFont);
+        textView3.setTypeface(customFont);
+        textView4.setTypeface(customFont);
+        textView5.setTypeface(customFont);
+        textView6.setTypeface(customFont);
+        textView7.setTypeface(customFont);
+        textView8.setTypeface(customFont);
+        textView9.setTypeface(customFont);
+        textView10.setTypeface(customFont);
+        textView11.setTypeface(customFont);
+        textView12.setTypeface(customFont);
+        textView13.setTypeface(customFont);
+        textView14.setTypeface(customFont);
+        textView15.setTypeface(customFont);
+        textView16.setTypeface(customFont);
+        textView17.setTypeface(customFont);
+        buttonBack.setTypeface(customFontButton);
+        buttonResult.setTypeface(customFontButton);
+        editTextSquare.setTypeface(customFont);
+        editTextSoilDensity.setTypeface(customFont);
+        editTextTopsoilThickness.setTypeface(customFont);
+        editTextHumusContent.setTypeface(customFont);
+        editTextSoilAcidity.setTypeface(customFont);
+        editTextContentK.setTypeface(customFont);
+        editTextContentP.setTypeface(customFont);
+
 
         Spinner mechanicalCompositionSoil = findViewById(R.id.spinnerMehanicalCompositionSoil);
 

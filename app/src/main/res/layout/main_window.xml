@@ -26,11 +26,10 @@
                     android:id="@+id/textViewFieldOption"
                     android:layout_width="325dp"
                     android:layout_height="34dp"
-                    android:fontFamily="@font/amaranth"
                     android:freezesText="true"
-                    android:textSize="12pt"
+                    android:text="Параметры поля"
                     android:textColor="@color/black"
-                    android:text="Параметры поля" />
+                    android:textSize="12pt" />
 
             </LinearLayout>
 
@@ -41,10 +40,9 @@
             android:text="" />
 
         <TextView
-            android:id="@+id/textRegionS"
+            android:id="@+id/textRegion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/amaranth"
             android:text="Регион"
             android:textColor="@color/black"
             android:textSize="10pt" />
@@ -86,9 +84,9 @@
             android:id="@+id/editTextSquare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="  Площадь, га"
+            android:hint="Площадь, га"
             android:minHeight="44dp"
-            android:focusableInTouchMode="false"
+            android:paddingLeft="20px"
             style="@style/EditTextStyle"/>
 
         <TextView
@@ -208,9 +206,9 @@
             android:id="@+id/editTextPlannedHarvest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="  Тонн с га"
+            android:hint="Тонн с га"
+            android:paddingLeft="20px"
             android:minHeight="44dp"
-            android:focusableInTouchMode="false"
             style="@style/EditTextStyle"/>
 
         <TextView
@@ -271,9 +269,9 @@
             android:id="@+id/editTextSoilDensity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="  г/см^3"
+            android:hint="г/см^3"
+            android:paddingLeft="20px"
             android:minHeight="44dp"
-            android:focusableInTouchMode="false"
             style="@style/EditTextStyle"/>
 
         <TextView
@@ -330,9 +328,9 @@
             android:id="@+id/editTextTopsoilThickness"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="  см"
+            android:hint="см"
+            android:paddingLeft="20px"
             android:minHeight="44dp"
-            android:focusableInTouchMode="false"
             style="@style/EditTextStyle"/>
 
         <TextView
@@ -361,9 +359,9 @@
             android:id="@+id/editTextHumusContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="  %"
+            android:hint="%"
+            android:paddingLeft="20px"
             android:minHeight="44dp"
-            android:focusableInTouchMode="false"
             style="@style/EditTextStyle"/>
 
         <TextView
@@ -420,9 +418,9 @@
             android:id="@+id/editTextSoilAcidity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="  pH"
+            android:hint="pH"
+            android:paddingLeft="20px"
             android:minHeight="44dp"
-            android:focusableInTouchMode="false"
             style="@style/EditTextStyle"/>
 
         <TextView
@@ -450,7 +448,6 @@
                 android:id="@+id/textViewChemComp"
                 android:layout_width="325dp"
                 android:layout_height="34dp"
-                android:fontFamily="@font/amaranth"
                 android:freezesText="true"
                 android:textSize="12pt"
                 android:textColor="@color/black"
@@ -462,13 +459,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="" />
-        <!--Содержание K-->
+
+        <!--Содержание N-->
 
         <TextView
-            android:id="@+id/textViewContentK2O"
+            android:id="@+id/textViewContentN"
             android:layout_width="427dp"
             android:layout_height="wrap_content"
-            android:text="Содержание К2О в почве"
+            android:text="Содержание N"
             android:textColor="@color/black"
             android:textSize="10pt" />
 
@@ -479,17 +477,49 @@
             android:text="" />
 
         <EditText
-            android:id="@+id/editTextContentK2O"
+            android:id="@+id/editTextContentN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="  мг/кг"
+            android:hint="мг/кг"
+            android:paddingLeft="20px"
             android:text=""
             android:minHeight="44dp"
-            android:focusableInTouchMode="false"
             style="@style/EditTextStyle"/>
 
         <TextView
             android:id="@+id/text27"
+            android:layout_width="match_parent"
+            android:layout_height="60px"
+            android:text="" />
+
+        <!--Содержание K-->
+
+        <TextView
+            android:id="@+id/textViewContentK2O"
+            android:layout_width="427dp"
+            android:layout_height="wrap_content"
+            android:text="Содержание К2О"
+            android:textColor="@color/black"
+            android:textSize="10pt" />
+
+        <TextView
+            android:id="@+id/text29"
+            android:layout_width="match_parent"
+            android:layout_height="30px"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/editTextContentK2O"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="мг/кг"
+            android:paddingLeft="20px"
+            android:text=""
+            android:minHeight="44dp"
+            style="@style/EditTextStyle"/>
+
+        <TextView
+            android:id="@+id/text30"
             android:layout_width="match_parent"
             android:layout_height="60px"
             android:text="" />
@@ -499,12 +529,12 @@
             android:id="@+id/textViewContentP2O5"
             android:layout_width="422dp"
             android:layout_height="wrap_content"
-            android:text="Содержание P2O5 в почве"
+            android:text="Содержание P2O5"
             android:textColor="@color/black"
             android:textSize="10pt" />
 
         <TextView
-            android:id="@+id/text28"
+            android:id="@+id/text31"
             android:layout_width="match_parent"
             android:layout_height="30px"
             android:text="" />
@@ -513,14 +543,14 @@
             android:id="@+id/editTextContentP2O5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="  мг/кг"
+            android:hint="мг/кг"
+            android:paddingLeft="20px"
             android:text=""
             android:minHeight="44dp"
-            android:focusableInTouchMode="false"
             style="@style/EditTextStyle"/>
 
         <TextView
-            android:id="@+id/text29"
+            android:id="@+id/text32"
             android:layout_width="match_parent"
             android:layout_height="80px"
             android:text="" />
@@ -533,7 +563,7 @@
             android:backgroundTint="@color/green" />
 
         <TextView
-            android:id="@+id/text30"
+            android:id="@+id/text33"
             android:layout_width="match_parent"
             android:layout_height="40px"
             android:text="" />

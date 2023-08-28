@@ -4,7 +4,7 @@
         <shape android:shape="rectangle">
             <corners android:radius="22px" /> <!-- Радиус закругления углов -->
             <solid android:color="@android:color/white" /> <!-- Цвет фона -->
-            <stroke android:color="@color/gray" android:width="6px" />
+            <stroke android:color="@color/green" android:width="6px" />
         </shape>
     </item>
 <item>
