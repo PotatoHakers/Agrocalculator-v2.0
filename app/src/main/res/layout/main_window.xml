@@ -151,35 +151,6 @@
             style="@style/SpinnerStyle" />
 
         <TextView
-            android:id="@+id/text7"
-            android:layout_width="match_parent"
-            android:layout_height="60px"
-            android:text="" />
-
-        <!--Предыдущая-->
-
-        <TextView
-            android:id="@+id/textViewPreviousCulture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Предыдущая"
-            android:textColor="@color/black"
-            android:textSize="10pt" />
-
-        <TextView
-            android:id="@+id/text8"
-            android:layout_width="match_parent"
-            android:layout_height="30px"
-            android:text="" />
-
-        <Spinner
-            android:id="@+id/previousSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:spinnerMode="dropdown"
-            style="@style/SpinnerStyle" />
-
-        <TextView
             android:id="@+id/text9"
             android:layout_width="match_parent"
             android:layout_height="60px"
@@ -298,9 +269,9 @@
 
         <Spinner
             android:id="@+id/spinnerMehanicalCompositionSoil"
+            style="@style/SpinnerStyle"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            style="@style/SpinnerStyle"/>
+            android:layout_height="48dp" />
 
         <TextView
             android:id="@+id/text16"
@@ -460,18 +431,113 @@
             android:layout_height="wrap_content"
             android:text="" />
 
-        <!--Содержание N-->
+        <!--Содержание N в почве-->
 
         <TextView
-            android:id="@+id/textViewContentN"
+            android:id="@+id/textViewContentNSoil"
             android:layout_width="427dp"
             android:layout_height="wrap_content"
-            android:text="Содержание N"
+            android:text="Содержание N в почве"
             android:textColor="@color/black"
             android:textSize="10pt" />
 
         <TextView
             android:id="@+id/text26"
+            android:layout_width="match_parent"
+            android:layout_height="30px"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/editTextContentNSoil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="мг/кг"
+            android:paddingLeft="20px"
+            android:text=""
+            android:minHeight="44dp"
+            style="@style/EditTextStyle"/>
+
+        <TextView
+            android:id="@+id/text27"
+            android:layout_width="match_parent"
+            android:layout_height="60px"
+            android:text="" />
+
+        <!--Содержание K в почве-->
+
+        <TextView
+            android:id="@+id/textViewContentK2OSoil"
+            android:layout_width="427dp"
+            android:layout_height="wrap_content"
+            android:text="Содержание К2О в почве"
+            android:textColor="@color/black"
+            android:textSize="10pt" />
+
+        <TextView
+            android:id="@+id/text29"
+            android:layout_width="match_parent"
+            android:layout_height="30px"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/editTextContentK2OSoil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="мг/кг"
+            android:paddingLeft="20px"
+            android:text=""
+            android:minHeight="44dp"
+            style="@style/EditTextStyle"/>
+
+        <TextView
+            android:id="@+id/text30"
+            android:layout_width="match_parent"
+            android:layout_height="60px"
+            android:text="" />
+
+        <!--Содержание P в почве-->
+
+        <TextView
+            android:id="@+id/textViewContentP2O5Soil"
+            android:layout_width="422dp"
+            android:layout_height="wrap_content"
+            android:text="Содержание P2O5 в почве"
+            android:textColor="@color/black"
+            android:textSize="10pt" />
+
+        <TextView
+            android:id="@+id/text31"
+            android:layout_width="match_parent"
+            android:layout_height="30px"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/editTextContentP2O5Soil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="мг/кг"
+            android:paddingLeft="20px"
+            android:text=""
+            android:minHeight="44dp"
+            style="@style/EditTextStyle"/>
+
+        <TextView
+            android:id="@+id/text32"
+            android:layout_width="match_parent"
+            android:layout_height="60px"
+            android:text="" />
+        <!--Содержание N в удобрениях-->
+
+        <TextView
+            android:id="@+id/textViewContentN"
+            android:layout_width="427dp"
+            android:layout_height="wrap_content"
+            android:text="Содержание N в удобрениях"
+            android:textColor="@color/black"
+            android:textSize="10pt" />
+
+        <TextView
+            android:id="@+id/text33"
             android:layout_width="match_parent"
             android:layout_height="30px"
             android:text="" />
@@ -487,23 +553,23 @@
             style="@style/EditTextStyle"/>
 
         <TextView
-            android:id="@+id/text27"
+            android:id="@+id/text34"
             android:layout_width="match_parent"
             android:layout_height="60px"
             android:text="" />
 
-        <!--Содержание K-->
+        <!--Содержание K в удобрениях-->
 
         <TextView
-            android:id="@+id/textViewContentK2O"
+            android:id="@+id/textViewContentK20"
             android:layout_width="427dp"
             android:layout_height="wrap_content"
-            android:text="Содержание К2О"
+            android:text="Содержание К2О в удобрениях"
             android:textColor="@color/black"
             android:textSize="10pt" />
 
         <TextView
-            android:id="@+id/text29"
+            android:id="@+id/text35"
             android:layout_width="match_parent"
             android:layout_height="30px"
             android:text="" />
@@ -519,22 +585,23 @@
             style="@style/EditTextStyle"/>
 
         <TextView
-            android:id="@+id/text30"
+            android:id="@+id/text36"
             android:layout_width="match_parent"
             android:layout_height="60px"
             android:text="" />
-        <!--Содержание P-->
+
+        <!--Содержание P в удобрениях-->
 
         <TextView
             android:id="@+id/textViewContentP2O5"
             android:layout_width="422dp"
             android:layout_height="wrap_content"
-            android:text="Содержание P2O5"
+            android:text="Содержание P2O5 в удобрениях"
             android:textColor="@color/black"
             android:textSize="10pt" />
 
         <TextView
-            android:id="@+id/text31"
+            android:id="@+id/text37"
             android:layout_width="match_parent"
             android:layout_height="30px"
             android:text="" />
@@ -550,7 +617,7 @@
             style="@style/EditTextStyle"/>
 
         <TextView
-            android:id="@+id/text32"
+            android:id="@+id/text38"
             android:layout_width="match_parent"
             android:layout_height="80px"
             android:text="" />
@@ -563,7 +630,7 @@
             android:backgroundTint="@color/green" />
 
         <TextView
-            android:id="@+id/text33"
+            android:id="@+id/text39"
             android:layout_width="match_parent"
             android:layout_height="40px"
             android:text="" />
