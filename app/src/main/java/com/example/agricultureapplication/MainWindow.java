@@ -16,23 +16,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainWindow extends AppCompatActivity {
 
     private Button buttonResult;
     private TextView regionEditText;
     private Spinner regionSpinner;
-    private Spinner mechanicalCompositionSoil;
     private EditText editTextSquare;
     private EditText editTextPlannedHarvest;
     private EditText editTextSoilDensity;
     private EditText editTextTopsoilThickness;
     private EditText editTextHumusContent;
     private EditText editTextSoilAcidity;
-    private int selectedValue;
+    private double selectedValueMech;
+    private double selectedValueDegreeInfestation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,25 +71,6 @@ public class MainWindow extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         regionSpinner.setAdapter(adapter);
-
-        regionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            private boolean initialSelection = true;
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (initialSelection) {
-                    initialSelection = false;
-                } else {
-                    String selectedRegion = parent.getItemAtPosition(position).toString();
-                    DataHolder.getInstance().setSelectedRegion(selectedRegion);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
-            }
-        });
 
         regionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -145,7 +122,6 @@ public class MainWindow extends AppCompatActivity {
                 }
             }
 
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Ничего не делаем
@@ -162,6 +138,27 @@ public class MainWindow extends AppCompatActivity {
         adapterSown.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sownSpinner.setAdapter(adapterSown);
+
+        sownSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Проверяем, выбран ли определенный элемент
+                if (position == 0) {
+                    //do nothing
+                } else if (position == 1){
+                    selectedValueDegreeInfestation = 1.001;
+                } else if (position == 2){
+                    selectedValueDegreeInfestation = 1.005;
+                } else if (position == 3){
+                    selectedValueDegreeInfestation = 1.01;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Ничего не делаем при отсутствии выбора
+            }
+        });
 
         TextView textView = findViewById(R.id.textViewFieldOption);
         TextView textView1 = findViewById(R.id.textViewCulture);
@@ -222,7 +219,7 @@ public class MainWindow extends AppCompatActivity {
         editTextContentP.setTypeface(customFont);
 
 
-        Spinner mechanicalCompositionSoil = findViewById(R.id.spinnerMehanicalCompositionSoil);
+        Spinner spinnerMechanicalCompositionSoil = findViewById(R.id.spinnerMehanicalCompositionSoil);
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
                 this,
@@ -231,24 +228,30 @@ public class MainWindow extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mechanicalCompositionSoil.setAdapter(adapter2);
+        spinnerMechanicalCompositionSoil.setAdapter(adapter2);
 
-        mechanicalCompositionSoil.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            private boolean initialSelection = true;
-
+        spinnerMechanicalCompositionSoil.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (initialSelection) {
-                    initialSelection = false;
-                } else {
-                    String selectedRegion = parent.getItemAtPosition(position).toString();
-                    DataHolder.getInstance().setSelectedRegion(selectedRegion);
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Проверяем, выбран ли определенный элемент
+                if (position == 0) {
+                    //do nothing
+                } else if (position == 1) {
+                    selectedValueMech = 1.01;
+                } else if (position == 2) {
+                    selectedValueMech = 1.02;
+                } else if (position == 3) {
+                    selectedValueMech = 1.03;
+                } else if (position == 4) {
+                    selectedValueMech = 1.04;
+                } else if (position ==5){
+                    selectedValueMech = 1.05;
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Ничего не делаем при отсутствии выбора
             }
         });
 
@@ -290,7 +293,7 @@ public class MainWindow extends AppCompatActivity {
 
                 regionSpinner.setSelection(0);
                 spinnerDegreeInfestation.setSelection(0);
-                mechanicalCompositionSoil.setSelection(0);
+                spinnerMechanicalCompositionSoil.setSelection(0);
 
                 editTextSquare.setText("");
                 editTextPlannedHarvest.setText("");
@@ -316,6 +319,7 @@ public class MainWindow extends AppCompatActivity {
                 // Получите выбранное значение из Spinner
                 String selectedItem = sownSpinner.getSelectedItem().toString();
 
+                //region double value
                 double value1;
                 double value2;
                 double value3;
@@ -328,13 +332,23 @@ public class MainWindow extends AppCompatActivity {
                 double value10;
                 double value11;
                 double value12;
+                //endregion double value
 
                 if (sownSpinner.getSelectedItemPosition() == 0) {
                     // Элемент не выбран в Spinner
-                    Toast.makeText(MainWindow.this, "Пожалуйста, выберите элемент в Spinner", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainWindow.this, "Не выбрана засеваемая культура", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                
+
+                if (spinnerMechanicalCompositionSoil.getSelectedItemPosition() == 0) {
+                    Toast.makeText(MainWindow.this, "Не выбран механический состав почвы", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (spinnerDegreeInfestation.getSelectedItemPosition() == 0) {
+                    Toast.makeText(MainWindow.this, "Не выбрана степень засорённости сорняками", Toast.LENGTH_SHORT).show();
+                }
+
                 try {
 
                     value1 = Double.parseDouble(editTextSquare.getText().toString());
@@ -368,11 +382,11 @@ public class MainWindow extends AppCompatActivity {
                 }
 
                 if (selectedItem.equals("Пшеница озимая")) {
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.53) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7  * selectedValueDegreeInfestation)) / ((value8 * 0.53) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.20) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.20) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.85) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.85) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -380,11 +394,11 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
                 } else if (selectedItem.equals("Пшеница яровая")) {
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.54) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.54) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.21) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.21) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.86) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.86) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -393,11 +407,11 @@ public class MainWindow extends AppCompatActivity {
                     startActivity(intent);
                 } else if (selectedItem.equals("Рожь озимая")) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.53) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.53) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.20) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.20) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.85) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.85) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -407,11 +421,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Овес"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.50) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.50) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.37) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.37) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.74) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.74) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -421,11 +435,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Ячмень яровой"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.47) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.47) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.42) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.42) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.81) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.81) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -435,11 +449,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Ячмень озимый"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.31) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.31) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.34) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.34) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.75) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.75) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -449,11 +463,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Гречиха"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.39) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.39) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.44) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.44) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.69) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.69) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -463,11 +477,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Кукуруза"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.32) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.32) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.43) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.43) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.84) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.84) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -477,11 +491,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Рис"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.37) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.37) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.39) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.39) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.73) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.73) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -491,11 +505,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Рапс озимый"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.50) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.50) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.36) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.36) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.82) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.82) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -505,11 +519,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Рапс яровой"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.42) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.42) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.43) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.43) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.83) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.83) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -519,11 +533,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Соя"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.49) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.49) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.48) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.48) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.80) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.80) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -533,11 +547,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Лен масличный"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.44) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.44) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.45) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.45) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.70) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.70) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -547,11 +561,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Хлопчатник"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.34) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.34) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.39) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.39) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.79) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.79) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -561,11 +575,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Лен"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.46) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.46) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.45) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.45) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.81) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.81) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -575,11 +589,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Сахарная свекла"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.40) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.40) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.38) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.38) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.80) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.80) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -589,11 +603,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Морковь"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.39) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.39) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.40) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.40) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.64) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.64) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -603,11 +617,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Капуста"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.38) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.38) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.33) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.33) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.62) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.62) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -617,11 +631,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Томат"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.48) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.48) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.34) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.34) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.64) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.64) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -631,11 +645,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Перец"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.37) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.37) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.44) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.44) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.83) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.83) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -645,11 +659,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Огурец"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.44) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.44) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.37) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.37) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.61) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.61) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -659,11 +673,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Кабачок"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.45) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.45) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.35) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.35) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.72) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.72) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -673,11 +687,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Лук репчатый"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.36) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.36) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.42) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.42) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.74) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.74) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -687,11 +701,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Картофель"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.41) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.41) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.20) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.20) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.75) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.75) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -701,11 +715,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Тыква"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.35) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.35) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.22) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.22) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.72) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.72) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -715,11 +729,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Арбуз"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.50) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.50) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.21) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.21) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.61) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.61) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -729,11 +743,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Дыня"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.45) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.45) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.29) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.29) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.83) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.83) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -743,11 +757,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Клубника"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.35) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.35) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.40) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.40) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.64) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.64) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -757,11 +771,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Голубика"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.35) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.35) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.31) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.31) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.65) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.65) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -771,11 +785,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Смородина"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.30) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.30) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.29) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.29) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.80) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.80) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -785,11 +799,11 @@ public class MainWindow extends AppCompatActivity {
 
                 } else if (selectedItem.equals(("Малина"))) {
 
-                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.40) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value8 * 0.40) * 1.01 * selectedValueMech);
 
-                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.41) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value10 * 0.41) * 1.01 * selectedValueMech);
 
-                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.62) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7 * selectedValueDegreeInfestation)) / ((value11 * 0.62) * 1.01 * selectedValueMech);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);

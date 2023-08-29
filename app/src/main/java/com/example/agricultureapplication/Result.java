@@ -58,7 +58,7 @@ public class Result extends AppCompatActivity {
         textViewN.setTypeface(customFont);
         textViewK.setTypeface(customFont);
         textViewP.setTypeface(customFont);
-        editTextP.setTypeface(customFont);
+        editTextN.setTypeface(customFont);
         editTextK.setTypeface(customFont);
         editTextP.setTypeface(customFont);
     }
