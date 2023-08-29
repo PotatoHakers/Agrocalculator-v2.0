@@ -46,7 +46,6 @@ public class Result extends AppCompatActivity {
             editTextResultP.setText(String.valueOf(formattedValueP));
         }else {editTextResultN.setText("Неверные данные"); editTextResultK.setText("Неверные данные"); editTextResultP.setText("Не требуется");}
         Typeface customFont = ResourcesCompat.getFont(this, R.font.comfortaa);
-        Typeface customFontButton = ResourcesCompat.getFont(this, R.font.comfortaa_big);
 
         EditText editTextN = findViewById(R.id.editTextN);
         EditText editTextK = findViewById(R.id.editTextK);
