@@ -9,22 +9,27 @@
         android:id="@+id/textViewN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:text="Количество Азота"
+        android:textSize="12pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.191"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        style="@style/EditTextStyle"
+        android:layout_width="250dp"
+        android:layout_height="105px"
+        android:hint="кг/га"
+        android:paddingLeft="20px"
         android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewN" />
 
@@ -32,21 +37,27 @@
         android:id="@+id/textViewP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="176dp"
         android:text="Количество Фосфора"
+        android:textSize="12pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="32dp"
+        style="@style/EditTextStyle"
+        android:layout_width="250dp"
+        android:layout_height="105px"
+        android:layout_marginTop="28dp"
         android:ems="10"
+        android:hint="кг/га"
+        android:paddingLeft="20px"
         android:inputType="textPersonName"
         android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewP" />
 
@@ -54,19 +65,27 @@
         android:id="@+id/textViewK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
         android:text="Количество Калия"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="342dp" />
+        android:textSize="12pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextP" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="40dp"
+        android:id="@+id/editTextK"
+        style="@style/EditTextStyle"
+        android:layout_width="250dp"
+        android:layout_height="105px"
+        android:layout_marginTop="32dp"
         android:ems="10"
+        android:hint="кг/га"
+        android:paddingLeft="20px"
         android:inputType="textPersonName"
         android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewK" />
 

@@ -41,24 +41,14 @@
         <item>Ячмень озимый</item>
         <item>Гречиха</item>
         <item>Кукуруза на зерно</item>
-        <item>Тритикале</item>
-        <item>Сорго</item>
-        <item>Проссо</item>
         <item>Рис</item>
-        <item>Горох</item>
-        <item>Фасоль</item>
-        <item>Чечевица</item>
-        <item>Подсолнечник</item>
         <item>Рапс озимый</item>
         <item>Рапс яровой</item>
         <item>Соя</item>
         <item>Лен мисличный</item>
-        <item>Кукуруза на силос</item>
-        <item>Райграс пастбищный</item>
         <item>Хлопчатник</item>
         <item>Лен</item>
         <item>Сахарная свекла</item>
-        <item>Свекла столовая</item>
         <item>Морковь</item>
         <item>Капуста балокачанная</item>
         <item>Томат</item>
@@ -70,17 +60,9 @@
         <item>Тыква</item>
         <item>Арбуз</item>
         <item>Дыня</item>
-        <item>Яблоня</item>
-        <item>Груша</item>
-        <item>Черешня</item>
-        <item>Персик</item>
-        <item>Виноград</item>
-        <item>Мандарин</item>
         <item>Клубника</item>
         <item>Голубика</item>
         <item>Смородина</item>
-        <item>Жимолость</item>
         <item>Малина</item>
-        <item>Крыжовник</item>
     </string-array>
 </resources>
