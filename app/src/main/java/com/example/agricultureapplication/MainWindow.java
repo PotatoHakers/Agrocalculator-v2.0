@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -315,95 +316,88 @@ public class MainWindow extends AppCompatActivity {
                 // Получите выбранное значение из Spinner
                 String selectedItem = sownSpinner.getSelectedItem().toString();
 
-                // Получите значения из EditText
-                double value1 = Double.parseDouble(editTextSquare.getText().toString());
-                double value2 = Double.parseDouble(editTextPlannedHarvest.getText().toString());
-                double value3 = Double.parseDouble(editTextContentNSoil.getText().toString());
-                double value4 = Double.parseDouble(editTextTopsoilThickness.getText().toString());
-                double value5 = Double.parseDouble(editTextSoilDensity.getText().toString());
-                double value6 = Double.parseDouble(editTextHumusContent.getText().toString());
-                double value7 = Double.parseDouble(editTextSoilAcidity.getText().toString());
-                double value8 = Double.parseDouble(editTextContentN.getText().toString());
-                double value9 = Double.parseDouble(editTextContentKSoil.getText().toString());
-                double value10 = Double.parseDouble(editTextContentK.getText().toString());
-                double value11 = Double.parseDouble(editTextContentP.getText().toString());
-                double value12 = Double.parseDouble(editTextContentPSoil.getText().toString());
+                double value1;
+                double value2;
+                double value3;
+                double value4;
+                double value5;
+                double value6;
+                double value7;
+                double value8;
+                double value9;
+                double value10;
+                double value11;
+                double value12;
 
-                if (selectedItem.equals("Пшеница озимая"))
-                {
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.53) * 1.01);
+                if (sownSpinner.getSelectedItemPosition() == 0) {
+                    // Элемент не выбран в Spinner
+                    Toast.makeText(MainWindow.this, "Пожалуйста, выберите элемент в Spinner", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                try {
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.20) * 1.01);
+                    value1 = Double.parseDouble(editTextSquare.getText().toString());
+                    value2 = Double.parseDouble(editTextPlannedHarvest.getText().toString());
+                    value3 = Double.parseDouble(editTextContentNSoil.getText().toString());
+                    value4 = Double.parseDouble(editTextTopsoilThickness.getText().toString());
+                    value5 = Double.parseDouble(editTextSoilDensity.getText().toString());
+                    value6 = Double.parseDouble(editTextHumusContent.getText().toString());
+                    value7 = Double.parseDouble(editTextSoilAcidity.getText().toString());
+                    value8 = Double.parseDouble(editTextContentN.getText().toString());
+                    value9 = Double.parseDouble(editTextContentKSoil.getText().toString());
+                    value10 = Double.parseDouble(editTextContentK.getText().toString());
+                    value11 = Double.parseDouble(editTextContentP.getText().toString());
+                    value12 = Double.parseDouble(editTextContentPSoil.getText().toString());
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.85) * 1.01);
+                } catch (NumberFormatException e) {
+                    // Один из EditText не содержит числовое значение
+                    Toast.makeText(MainWindow.this, "Пожалуйста, введите числовые значения", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-                }else if (selectedItem.equals("Пшеница яровая"))
-                {
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.54) * 1.01);
+                if (regionSpinner.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
+                    // Элемент не выбран в Spinner
+                    Toast.makeText(MainWindow.this, "Пожалуйста, выберите культуру", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (sownSpinner.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
+                    // Элемент не выбран в Spinner
+                    Toast.makeText(MainWindow.this, "Пожалуйста, выберите культуру", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.21) * 1.01);
+                if (selectedItem.equals("Пшеница озимая")) {
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.53) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.86) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.20) * 1.01);
 
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-                }else if (selectedItem.equals("Рожь озимая")){
-
-                    double resultN = ((value1 * (value2/10)* (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.53) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.20) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.85) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Овес"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.50) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.37) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.74) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.85) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
                     intent.putExtra("resultK", resultK);
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
+                } else if (selectedItem.equals("Пшеница яровая")) {
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.54) * 1.01);
 
-                }else if (selectedItem.equals(("Ячмень яровой"))){
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.21) * 1.01);
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.47) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.42) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.81) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.86) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
                     intent.putExtra("resultK", resultK);
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
+                } else if (selectedItem.equals("Рожь озимая")) {
 
-                }else if (selectedItem.equals(("Ячмень озимый"))){
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.53) * 1.01);
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.31) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.20) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.34) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.75) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.85) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -411,27 +405,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Гречиха"))){
+                } else if (selectedItem.equals(("Овес"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.39) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.50) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.44) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.37) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.69) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Кукуруза"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.32) * 1.01);
-
-                    double resultK = ((value1 * (value2/10)* (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.43) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.84) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.74) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -439,27 +419,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Рис"))){
+                } else if (selectedItem.equals(("Ячмень яровой"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.37) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.47) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.39) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.42) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.73) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Рапс озимый"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.50) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.36) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.82) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.81) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -467,27 +433,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Рапс яровой"))){
+                } else if (selectedItem.equals(("Ячмень озимый"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.42) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.31) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.43) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.34) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.83) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Соя"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.49) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.48) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.80) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.75) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -495,27 +447,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Лен масличный"))){
+                } else if (selectedItem.equals(("Гречиха"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.44) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.39) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.45) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.44) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.70) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Хлопчатник"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.34) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.39) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.79) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.69) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -523,27 +461,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Лен"))){
+                } else if (selectedItem.equals(("Кукуруза"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.46) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.32) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.45) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.43) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.81) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Сахарная свекла"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.40) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.38) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.80) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.84) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -551,27 +475,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Морковь"))){
+                } else if (selectedItem.equals(("Рис"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.39) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.37) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.40) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.39) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.64) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Капуста"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.38) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.33) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.62) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.73) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -579,27 +489,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Томат"))){
+                } else if (selectedItem.equals(("Рапс озимый"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.48) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.50) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.34) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.36) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.64) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Перец"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.37) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.44) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.83) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.82) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -607,27 +503,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Огурец"))){
+                } else if (selectedItem.equals(("Рапс яровой"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.44) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.42) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.37) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.43) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.61) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Кабачок"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.45) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.35) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.72) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.83) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -635,27 +517,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Лук репчатый"))){
+                } else if (selectedItem.equals(("Соя"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.36) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.49) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.42) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.48) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.74) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Картофель"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.41) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.20) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.75) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.80) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -663,27 +531,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Тыква"))){
+                } else if (selectedItem.equals(("Лен масличный"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.35) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.44) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.22) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.45) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.72) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Арбуз"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.50) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.21) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.61) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.70) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -691,27 +545,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Дыня"))){
+                } else if (selectedItem.equals(("Хлопчатник"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.45) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.34) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.29) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.39) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.83) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Клубника"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.35) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.40) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.64) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.79) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -719,27 +559,13 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Голубика"))){
+                } else if (selectedItem.equals(("Лен"))) {
 
-                    double resultN = ((value1 * (value2/10)* (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.35) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.46) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.31) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.45) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.65) * 1.01);
-
-                    Intent intent = new Intent(MainWindow.this, Result.class);
-                    intent.putExtra("resultN", resultN);
-                    intent.putExtra("resultK", resultK);
-                    intent.putExtra("resultP", resultP);
-                    startActivity(intent);
-
-                }else if (selectedItem.equals(("Смородина"))){
-
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.30) * 1.01);
-
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.29) * 1.01);
-
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.80) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.81) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -747,13 +573,223 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
 
-                }else if (selectedItem.equals(("Малина"))){
+                } else if (selectedItem.equals(("Сахарная свекла"))) {
 
-                    double resultN = ((value1 * (value2/10) * (value3*0.25)) - ((value4 * value5) * value6 * value7)) / ((value8*0.40) * 1.01);
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.40) * 1.01);
 
-                    double resultK = ((value1 * (value2/10) * (value9*0.25)) - ((value4 * value5) * value6 * value7)) / ((value10*0.41) * 1.01);
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.38) * 1.01);
 
-                    double resultP = ((value1 * (value2/10) * (value12*0.25)) - ((value4 * value5) * value6 * value7)) / ((value11*0.62) * 1.01);
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.80) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Морковь"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.39) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.40) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.64) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Капуста"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.38) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.33) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.62) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Томат"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.48) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.34) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.64) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Перец"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.37) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.44) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.83) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Огурец"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.44) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.37) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.61) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Кабачок"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.45) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.35) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.72) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Лук репчатый"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.36) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.42) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.74) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Картофель"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.41) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.20) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.75) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Тыква"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.35) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.22) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.72) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Арбуз"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.50) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.21) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.61) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Дыня"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.45) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.29) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.83) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Клубника"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.35) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.40) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.64) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Голубика"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.35) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.31) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.65) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Смородина"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.30) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.29) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.80) * 1.01);
+
+                    Intent intent = new Intent(MainWindow.this, Result.class);
+                    intent.putExtra("resultN", resultN);
+                    intent.putExtra("resultK", resultK);
+                    intent.putExtra("resultP", resultP);
+                    startActivity(intent);
+
+                } else if (selectedItem.equals(("Малина"))) {
+
+                    double resultN = ((value1 * (value2 / 10) * (value3 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value8 * 0.40) * 1.01);
+
+                    double resultK = ((value1 * (value2 / 10) * (value9 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value10 * 0.41) * 1.01);
+
+                    double resultP = ((value1 * (value2 / 10) * (value12 * 0.25)) - ((value4 * value5) * value6 * value7)) / ((value11 * 0.62) * 1.01);
 
                     Intent intent = new Intent(MainWindow.this, Result.class);
                     intent.putExtra("resultN", resultN);
@@ -761,8 +797,8 @@ public class MainWindow extends AppCompatActivity {
                     intent.putExtra("resultP", resultP);
                     startActivity(intent);
                 }
-            }
 
+            }
         });
     }
 }
