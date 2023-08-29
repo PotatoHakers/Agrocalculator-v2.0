@@ -31,10 +31,18 @@ public class Result extends AppCompatActivity {
         double resultK = intent.getDoubleExtra("resultK", 0.0);
         double resultP = intent.getDoubleExtra("resultP", 0.0);
 
+        String formattedValueN = String.format("%.1f", resultN);
+        String formattedValueK = String.format("%.1f", resultN);
+        String formattedValueP = String.format("%.1f", resultN);
+
+        editTextResultN.setText(formattedValueN);
+        editTextResultK.setText(formattedValueK);
+        editTextResultP.setText(formattedValueP);
+
         // Установите полученный результат в EditText
-        editTextResultN.setText(String.valueOf(resultN));
-        editTextResultK.setText(String.valueOf(resultK));
-        editTextResultP.setText(String.valueOf(resultP));
+        editTextResultN.setText(String.valueOf(formattedValueN));
+        editTextResultK.setText(String.valueOf(formattedValueK));
+        editTextResultP.setText(String.valueOf(formattedValueP));
 
         Typeface customFont = ResourcesCompat.getFont(this, R.font.comfortaa);
         Typeface customFontButton = ResourcesCompat.getFont(this, R.font.comfortaa_big);
