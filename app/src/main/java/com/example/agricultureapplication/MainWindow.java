@@ -294,6 +294,7 @@ public class MainWindow extends AppCompatActivity {
                 regionSpinner.setSelection(0);
                 spinnerDegreeInfestation.setSelection(0);
                 spinnerMechanicalCompositionSoil.setSelection(0);
+                sownSpinner.setSelection(0);
 
                 editTextSquare.setText("");
                 editTextPlannedHarvest.setText("");
@@ -301,7 +302,12 @@ public class MainWindow extends AppCompatActivity {
                 editTextTopsoilThickness.setText("");
                 editTextHumusContent.setText("");
                 editTextSoilAcidity.setText("");
-
+                editTextContentK.setText("");
+                editTextContentKSoil.setText("");
+                editTextContentN.setText("");
+                editTextContentNSoil.setText("");
+                editTextContentP.setText("");
+                editTextContentPSoil.setText("");
             }
         });
 
