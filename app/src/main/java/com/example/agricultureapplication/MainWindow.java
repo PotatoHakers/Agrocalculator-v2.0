@@ -124,7 +124,7 @@ public class MainWindow extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Ничего не делаем
+                // do nothing
             }
         });
 
