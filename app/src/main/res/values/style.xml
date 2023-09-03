@@ -7,4 +7,10 @@
     <style name="EditTextStyle">
         <item name="android:background">@drawable/edittext_background</item>
     </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/green</item>
+        <item name="colorAccent">@color/green</item>
+    </style>
 </resources>
